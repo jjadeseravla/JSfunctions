@@ -1,3 +1,6 @@
+//https://www.youtube.com/watch?v=JcYVuVVr5sU&list=PLD_PIFu4jYOuMnFRKQbl21_jZvtxsIFuz&index=10
+//Babacademy
+
 const reverseString = (str) => {
   let reversed = '';
 
@@ -101,14 +104,14 @@ const isSameCharsInString = (str1, str2) => {
 
 }
 
-const isObject = (chars) => {
+const isObject = (charsArr) => {
   const obj = {};
 
-  for (let i = 0; i < chars.length; i++) {
-    if (!obj[chars[i]]) {
-      obj[chars[i]] = 1;
+  for (let i = 0; i < charsArr.length; i++) {
+    if (!obj[charsArr[i]]) {
+      obj[charsArr[i]] = 1;
     } else {
-      obj[chars[i]]++;
+      obj[charsArr[i]]++;
     }
   }
   return obj;
@@ -132,25 +135,37 @@ const replaceSpaceWith = (str, charLength) => { //dont need charLength?
   return charArr.join('');
 }
 
-const areWordsMadePalindrome = (str) => {
+const areWordsMadePalindrome = (str) => { //FUNCTION DOES NOT WORK!!
   const charArr = str.replace(/ /g, '').split(''); // remove white spaces
+  console.log("charArr", charArr);
   let obj = isObject(charArr);
+  console.log("1", obj);
+
   const arrOfValues = Object.keys(obj).map(key => obj[key]); //gives you array of values only
   let newArr = [];
+
   // if (Object.keys(obj).length % 2 !== 0 && allAreTwo(arrOfValues)) {
   //   return true;
   // }
+  console.log("2", arrOfValues);
+  console.log(arrOfValues.length);
 
   for (let i = 0; i < arrOfValues.length; i++) {
-    if (arrOfValues % 2 === 0 && arrOfValues[i] % 2 === 0) {
-      return true;
-    } if (arrOfValues % 2 !== 0 && arrOfValues[i] % 2 !== 0) {
+    if (arrOfValues.length % 2 !== 0 && arrOfValues[i] % 2 !== 0) {
+      console.log("3");
         newArr.push(arrOfValues[i])
+    }
+    if (arrOfValues[i] % 2 === 0) {
+      console.log("4", arrOfValues[i]);
+      return true;
     }
   }
   if (newArr.length === 1) {
+    console.log("5");
     return true;
   }
+  console.log("6");
+  return false;
 }
 
 
@@ -158,6 +173,51 @@ const areWordsMadePalindrome = (str) => {
 const allAreTwo = (arrOfValues) => {
   return arrOfValues.every(val => val === 2);
 }
+
+
+const isInsertRemoveReplaceSameWord = (str1, str2) => {
+
+  if ( str1 === str2) { //if strings are identical
+    return false;
+  }
+
+  const obj1 = isObject2(str1.split('').sort());
+  const obj2 = isObject2(str2.split('').sort());
+  let counter = 0;
+
+  for(let i in obj1) { //comparing objects?!
+    console.log(1, obj1);
+    if(obj1[i] !== obj2[i]) {
+      counter++;
+      console.log("counter", counter);
+    }
+     if (counter >= 2){
+      return false;
+    }
+  }
+  console.log(3);
+return true;
+}
+//insert = obj length has one more obj of value 1 || obj value +1
+//remove = obj value is -1 || obj length is -1
+//replace = obj values same && obj length the same && one obj key changed
+
+
+
+//a character map <--IMPORTANT LEARN
+const isObject2 = (charArr) => {
+  const obj = {};
+
+  for (let i = 0; i < charArr.length; i++) {
+    if (!obj[charArr[i]] ) {
+      obj[charArr[i]] = 1;
+    } else {
+      obj[charArr[i]] ++;
+    }
+  }
+  return obj;
+}
+//if(!obj[charArr[i]]) ? obj[charArr[i]] = 1 : obj[charArr[i]] ++;
 
 //console.log(reverseString('abcdefg'));
 //console.log(isPalindrome('hannah'));
@@ -184,6 +244,14 @@ const allAreTwo = (arrOfValues) => {
 // console.log(replaceSpaceWith("the cat sat on me", 17));
 // console.log(replaceSpaceWith(" bellend ", 8));
 // console.log(replaceSpaceWith("me", 0));
-console.log(areWordsMadePalindrome("tact coa")); //true cos tacocat, atcocta, catptac - not real words but palindrome
-//{ t: 2, a: 2, c: 2, o: 1 } ---> [2, 2, 2, 2, 1]
-console.log(areWordsMadePalindrome("abcdef")); //false
+// console.log(areWordsMadePalindrome("tact coa")); //true cos tacocat, atcocta,  - not real words but palindrome
+// //{ t: 2, a: 2, c: 2, o: 1 } ---> [2, 2, 2, 2, 1]
+//console.log(areWordsMadePalindrome("abcdef")); //false
+// console.log(areWordsMadePalindrome("tpopto")); // true "tpoopt"
+//console.log(areWordsMadePalindrome("puipip")); //false but its giving me true cos last element in array is a 2 and so my code is wrong
+console.log(isInsertRemoveReplaceSameWord("pale", "ple")); //true
+console.log(isInsertRemoveReplaceSameWord("pale", "pole")); //true
+console.log(isInsertRemoveReplaceSameWord("pale", "kale")); //true
+console.log(isInsertRemoveReplaceSameWord("pale", "pales")); //true
+console.log(isInsertRemoveReplaceSameWord("pale", "bake")); //false
+console.log(isInsertRemoveReplaceSameWord("palee", "pale")); //true
