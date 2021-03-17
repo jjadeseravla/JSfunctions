@@ -295,5 +295,43 @@ const charCompression = (str) => {
 // console.log(isInsertRemoveReplaceSameWord("pale", "pales")); //true
 // console.log(isInsertRemoveReplaceSameWord("pale", "bake")); //false
 // console.log(isInsertRemoveReplaceSameWord("palee", "pale")); //true
-console.log(charCompression("aabcccccaaabbbbbb")); //a2b1c5a3
-console.log(charCompression("abcd"));//abcd
+// console.log(charCompression("aabcccccaaabbbbbb")); //a2b1c5a3
+// console.log(charCompression("abcd"));//abcd
+
+//DOES NOT WORK EVERYTHING IS ZERO!!!
+const zeroMatrix = (nestedArr) => {
+  //count length inside arr eg 3
+  const arrLengthInsideArr = nestedArr.length;
+
+
+
+  for (let r = 0; r < nestedArr.length; r++) {
+    for (let c = 0; c < nestedArr.length; c++) {
+      if (isZero(nestedArr[r][c])) {
+        nestedArr[r][c] = true;
+      }
+    }
+  }
+
+
+  for (let r = 0; r < nestedArr.length; r++) {
+    for (let c = 0; c < nestedArr.length; c++) {
+      if (nestedArr[r][c] === true)
+        for(let i = 0; i < nestedArr.length; i++) {
+          nestedArr[r][i] = 0; //zero the row
+        }
+        for(let i = 0; i < nestedArr.length; i++) {
+          nestedArr[i][c] = 0; //zero the column
+        }
+      }
+    }
+  return nestedArr;
+}
+
+const isZero = (element) => element === 0;
+
+
+console.log(zeroMatrix( [ [4, 1, 3], [2, -4, 0], [5, 9, 2] ] ));
+//-->                   [ [4, 1, 0], [0, 0, 0], [5, 9, 0] ]
+console.log(zeroMatrix( [ [5, 2, 0], [9, 0, 1], [2, 9, 3] ] ));
+// -->                  [ [0, 0, 0], [0, 0, 0], [2, 0, 0] ]
