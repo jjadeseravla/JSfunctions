@@ -46,3 +46,15 @@ const flatten = (items) => {
 console.log(flatten(uglyArr));
 
 //----------------------------------------------------------------------------------------------------
+const array = ['a', 'b', 'c'];
+const array2 = array;
+array2.push('d');
+console.log(array); // ['a', 'b', 'c', 'd'];
+// has a d cos storing by reference even tho consoling original array
+// not creating a new variable in memory, its pointing to the original array like redirecting you
+// BUT if you use spread operator you can successfully duplicate it
+
+const array2 = [...array];
+array2.push('d')
+console.log(array); //['a', 'b', 'c'] instead now
+console.log(array2) // ['a', 'b', 'c', 'd'];
