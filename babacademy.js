@@ -205,7 +205,7 @@ return true;
 
 
 //a character map <--IMPORTANT LEARN
-const isObject2 = (charArr) => {
+const isObject2 = (charArr) => { //works with a str too, not just charsArr!
   const obj = {};
 
   for (let i = 0; i < charArr.length; i++) {
@@ -218,6 +218,46 @@ const isObject2 = (charArr) => {
   return obj;
 }
 //if(!obj[charArr[i]]) ? obj[charArr[i]] = 1 : obj[charArr[i]] ++;
+
+const charCompression = (str) => {
+  const charArr = str.split('');
+  const charMapObj = isObject2(str.split(''));
+  console.log("1", charMapObj);
+  let count = 1;
+  let uniqueCount = 0;
+  let output = '';
+
+  const charMapObjValuesArr = Object.keys(charMapObj).map(key => charMapObj[key]);
+  console.log("2", charMapObjValuesArr);
+
+  for (var i = 0; i < charMapObjValuesArr.length; i++) {
+    if (charMapObjValuesArr[i] === 1) {
+      const chars = Object.keys(charMapObj)
+      return chars.join('');
+      console.log("3", chars.join(''));
+      //return JSON.stringify(charMapObj).replace(/[^\w\s]/gi, ''); // gives you ['a, 'b', 'c', 'd']
+    } else {
+      for (var i = 0; i < charArr.length; i++) {
+        if (charArr[i] === charArr[i+1]) {
+          count++;
+          console.log("4", count);
+        } else {
+          output += charArr[i] + count
+          count = 1;
+          uniqueCount ++;
+          console.log("5", output, count, uniqueCount);
+        }
+      }
+    }
+  }
+  if (uniqueCount === str.length) {
+    return str;
+    console.log("6", str);
+  } else {
+    return output;
+    console.log("7", output);
+  }
+}
 
 //console.log(reverseString('abcdefg'));
 //console.log(isPalindrome('hannah'));
@@ -249,9 +289,11 @@ const isObject2 = (charArr) => {
 //console.log(areWordsMadePalindrome("abcdef")); //false
 // console.log(areWordsMadePalindrome("tpopto")); // true "tpoopt"
 //console.log(areWordsMadePalindrome("puipip")); //false but its giving me true cos last element in array is a 2 and so my code is wrong
-console.log(isInsertRemoveReplaceSameWord("pale", "ple")); //true
-console.log(isInsertRemoveReplaceSameWord("pale", "pole")); //true
-console.log(isInsertRemoveReplaceSameWord("pale", "kale")); //true
-console.log(isInsertRemoveReplaceSameWord("pale", "pales")); //true
-console.log(isInsertRemoveReplaceSameWord("pale", "bake")); //false
-console.log(isInsertRemoveReplaceSameWord("palee", "pale")); //true
+// console.log(isInsertRemoveReplaceSameWord("pale", "ple")); //true
+// console.log(isInsertRemoveReplaceSameWord("pale", "pole")); //true
+// console.log(isInsertRemoveReplaceSameWord("pale", "kale")); //true
+// console.log(isInsertRemoveReplaceSameWord("pale", "pales")); //true
+// console.log(isInsertRemoveReplaceSameWord("pale", "bake")); //false
+// console.log(isInsertRemoveReplaceSameWord("palee", "pale")); //true
+console.log(charCompression("aabcccccaaabbbbbb")); //a2b1c5a3
+console.log(charCompression("abcd"));//abcd
