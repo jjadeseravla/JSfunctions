@@ -62,23 +62,52 @@ const bestBlock = (obj, arr) => {
 
 const booleansToNums = (arr) => {
 
+//  let newArr = [];
+
+  // for (let i = 0; i < arr.length; i++) {
+  //   if (arr[i] === true) {
+  //   arr.splice(i, 1, 0)
+  //  }
+  //  else {
+  //
+  //    arr.splice(i, 1, distanceToTrue); //j
+  // }
+
+  const indexesOfTrues = getAllIndexes(arr, true); //[1, 2]
+
+
+  arr.map((element) => {
+    if(indexOf(element))
+  })
   for (let i = 0; i < arr.length; i++) {
-    if (arr[i] === true) {
-  //     console.log("io");
-       arr.splice(indexOf(arr[i], 1, 0))
-     }
-    else if (arr[i + 1] === true || (arr[i -1]) === true) {
-      //  replace with i
-      console.log("io");
-      arr.splice(indexOf(arr[i]), 1, i);
-      //check is arr[i+1] || arr[i-1] === true //if yes replace with 1
-      //if no loop round and check arr[i+2] || arr[i-2] if yes replace with 2
-      }
-     }
+
+   }
+
+     //}
   return arr;
 }
 
-console.log(booleansToNums([false, true, true, false, false]));
+const replaceAt = (arr, index, value) => {
+  const ret = arr.slice(0); //slice(0) makes a copy of the original array by taking a slice from the element at index 0 to the last element.
+  //slice(0) creates a new array identical to the original array. Many a times you want to preserve your original array and create a new one
+  ret[index]= value;
+  return ret;
+}
+
+function getAllIndexes(arr, val) {
+    var indexes = [], i = -1;
+    while ((i = arr.indexOf(val, i+1)) != -1){
+        indexes.push(i);
+    }
+    return indexes;
+}
+
+console.log(getAllIndexes([false, true, true, false, false], true));
+//                            [0,     1,    2,    3,     4   ]
+//[1, 0, 0, 1, 2] - gym
+//[0, 1, 0, 0, 0] - school
+//[4, 3, 2, 1, 0] - store
+//check vertically down which has the lowest numbers
 //console.log(bestBlock(blocks, reqs));
 
-//  DONT USE SPLICE AS IT MUTATES ARRAY AND THEN ARR.LENGTH IS ALWAYS DIFFERNT, LOOOK AT CLICE OR BINARY TREE
+//  DONT USE SPLICE AS IT MUTATES ARRAY AND THEN ARR.LENGTH IS ALWAYS DIFFERNT, LOOOK AT CLICE OR BINARY SEARCH TREE
