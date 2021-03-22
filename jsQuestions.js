@@ -1,3 +1,7 @@
+//amigoscode
+//https://www.youtube.com/watch?v=dOnAC2Rr-6A
+const fetch = require("node-fetch");
+
 
 //use arr.LENGTH and .EVERY(value, index) function to see if 2 arrays are the SAME
 let isAnagram = (str1, str2) => {
@@ -156,6 +160,7 @@ class Animal {
     this.age = age;
   }
 
+//static methods are good when you want to expose a method but not create an instance of the actual class
   static iAmAStaticMethod() {
     console.log('static method inside animal class');
   }
@@ -196,6 +201,85 @@ const rey = new Dog('Rey', 4, 'Husky');
 rey.logBreed();
 ///rey.logDogAge(); //doesnt work i dont understand as it should ????????????
 
-
-
 // ----------------------------------------------------------------------------------------------------------------------------------
+//promises
+const promise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve('data back from server')
+  }, 3000);
+
+  setTimeout(() => {
+    reject('error: no data back from the server')
+  }, 5000);
+});
+
+promise.then(response => {
+  console.log(response);
+}).catch(error => {
+  console.log(error);
+}); //error after 2 secs - no data back from server
+// but if change 2000 to 5000, the resolve executes first at 3 secs and you get 'data back from server'
+
+const namesPromise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(['bob', 'pat', 'sue']);
+  }, 3000);
+
+  setTimeout(() => {
+    reject('error: no data back from server')
+  }, 5000);
+})
+
+const surNamesPromise = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(['smith', 'brown', 'jones']);
+  }, 3000);
+
+  setTimeout(() => {
+    reject('error: no data back from server')
+  }, 5000);
+})
+
+//want to get names and surnames at same time
+// Promise.all([names
+//   Promise, surNamesPromise]).then(data => {
+//   console.log(data)
+//   //get [ [ 'bob', 'pat', 'sue' ], [ 'smith', 'brown', 'jones' ] ]
+// }).catch(error => {
+//   console.log(error);
+// })
+
+Promise.all([namesPromise, surNamesPromise]).then(data => {
+  const [names, surnames] = data;
+  for (let i = 0; i < names.length; i++) {
+    const name = names[i];
+    const surname = surnames[i];
+    console.log(`${name} ${surname}`);
+  }
+}).catch(error => {
+  console.log(error);
+})
+//we get: data back from server
+// bob smith
+// pat brown
+// sue jones
+
+//im using random users website that has masses of data about randomers and the json for them
+const getRandomUsers = n => {
+  const fetchRandomUsers = fetch(`https://randomuser.me/api/?results=${n}`);
+  // console.log(fetchRandomUsers);
+  fetchRandomUsers.then(data => {
+    // console.log(data); //with this line it logs the whole object response
+    //console.log(data.json()); //now we have [object Promise]
+    data.json().then(randomUsers => {
+      console.log(JSON.stringify(randomUsers.results.length));//get an array length with random users --> which is 10
+      randomUsers.results.forEach((person) => {
+        //console.log(person.gender); //or use destructuring
+        const {gender, email} = person;
+        console.log(`${gender} and their email is ${email}`);
+      })
+    })
+  });
+}
+
+console.log('the random users', getRandomUsers(10)); //[object Promise]
