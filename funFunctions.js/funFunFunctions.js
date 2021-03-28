@@ -3,6 +3,7 @@
 //import _ from 'lodash';
 const _ = require('lodash');
 const fs = require('fs');
+const highland = require('highland');
 
 const animals = [
   {name: 'fluff', species: 'rabbit'},
@@ -241,7 +242,7 @@ const nameLengths = (dragonz) => {
   })
 }
 
-console.log(nameLengths(dragonz));
+console.log(nameLengths(dragonz)); //[5, 6, 4]
 
 
 const plus1 = (value) => {
@@ -262,3 +263,37 @@ const minus1 = (value) => {
 [3, 4].map(plus1); // [4, 5]
 stringFunctor('ABC', plus1); // 'BCD'
 stringFunctor('XYZ', minus1) //'WXY'
+
+//---------------------------------------------------------------------------------------------------------------------------------
+//STREAM -flow of values. like an array had a baby with a promise
+
+highland(fs.createReadStream('data2.txt'))
+  .each(console.log) //get a buffer (byte offer) when dont pass any string encoding
+
+highland(fs.createReadStream('data2.txt', 'utf8'))
+  .split('')
+  .map((line) => line.split(','))
+  .map((parts) => ({
+    name: parts[0],
+    numPurchases: parts[1]
+  })) // extra brackets otherwise JS interprets it as a function block, but we want it to interpret it as an object
+  .filter(customer => customer.numPurchases > 2)
+  .map(customer => customer.name)
+  .each(x => console.log('each: ', x)) //get a buffer (byte offer) when dont pass any string encoding
+  // each:  Fluff
+  // each:  King Mukla
+
+
+
+//READDDDDDD: when streaming and doing dot notation everyline make sure your functions are all on same line.  if using arrow keys on
+//same line than you dont need to put return, eg line 275
+
+// const stupidNumberStream = {
+//   each: (callback) => {
+//     setTimeout(() => callback(1), 1000)
+//     setTimeout(() => callback(2), 2000)
+//     setTimeout(() => callback(3), 3000)
+//   }
+// }
+//
+// createStupidNumberStream.each(console.log);
