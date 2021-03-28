@@ -166,3 +166,99 @@ console.log('why', lightningDragons);
 //console.log(lightningDragon(dragons));
 
 //a curryable function takes every argument to itself and returns its on function
+
+//---------------------------------------------------------------------------------------------------------------------------------
+//RECURSION - when a function calls itself until it doesnt
+//DOESNT WORKKKKK
+let countDownFrom = (num) => {
+  if (num === 0) {
+    return;
+  }
+  console.log(num);
+  countDownFrom(num -1);
+}
+
+console.log(countDownFrom(10));
+//10, 9, 8 etc to 1
+
+// let categories = [
+//   { id: 'animals', 'parent': null }, //top category eg animals does not havea  parent
+//   { id: 'mammals', 'parent': 'animals' }, //animal is parent to mammal
+//   { id: 'cats', 'parent': 'mammals' },
+//   { id: 'dogs', 'parent': 'mammals' },
+//   { id: 'pomeranian', 'parent': 'dogs' },
+//   { id: 'lab', 'parent': 'dogs' },
+//   { id: 'persian', 'parent': 'cats' },
+//   { id: 'siamese', 'parent': 'cats' }
+// ]
+//
+// const makeTree = (categories) => {
+//   let node = {}
+//   categories
+//   .filter((x) => {
+//     x.parent === categories.parent //an array of categories that has parent (so just line 185)
+//   })
+//   .forEach((x) => {
+//     node[x.id] = makeTree(categories, x.id) //call makeTree and make recursive
+//   })//assign the id to the node
+//   return node;
+// }
+//
+// console.log(JSON.stringify(makeTree(categories, null), null, 2));
+//
+// //make into a tree structure:
+// // {
+// //   animals: {
+// //     mammals: {
+// //       dogs: {
+// //         pomeranian: null
+// //         lab: null
+// //       },
+// //       cats: {
+// //         persian: null
+// //         saimese: null
+// //       }
+// //     }
+// //   }
+// // }
+
+//---------------------------------------------------------------------------------------------------------------------------------
+//FUNCTOR - functions that take a value and a function.  it unwraps value into individual parts it feeds into the function that its been given and take the return functions
+//eg array.  functors are objects that implement map
+
+const dragonz = [
+  { name: 'fluff', health: 70 },
+  { name: 'deathy', health: 650 },
+  { name: 'bebe', health: 2 },
+]
+
+const nameLengths = (dragonz) => {
+  return dragonz.map((dragon) => {
+    return dragon.name
+  })
+  .map((dragonName) => {
+    return dragonName.length
+  })
+}
+
+console.log(nameLengths(dragonz));
+
+
+const plus1 = (value) => {
+  return value + 1;
+}
+
+const stringFunctor = (value, fn) => { //takes a function eg the plus1 funtion
+ const chars = value.split('');
+ return chars.map((char) => {
+   return String.fromCharCode(fn(char.charCodeAt(0)))
+ }).join('')
+}
+
+const minus1 = (value) => {
+  return value -1;
+}
+
+[3, 4].map(plus1); // [4, 5]
+stringFunctor('ABC', plus1); // 'BCD'
+stringFunctor('XYZ', minus1) //'WXY'
