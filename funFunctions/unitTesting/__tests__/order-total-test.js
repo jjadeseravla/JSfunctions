@@ -1,5 +1,12 @@
 const orderTotal = require('../order-total');
 
+const orderWithCountry = {
+  country: 'DE',
+  items: [
+    { name: 'Dragon waffles', price: 20, quantity: 2 }
+  ]
+}
+
 const order = {
   items: [
     { name: 'Dragon candy', price: 2, quantity: 3 }
@@ -28,6 +35,28 @@ const orderBig2 = {
 
 it('test', () => {
   expect(1).toBe(1);
+})
+
+// it('calls vatapi.com', () => {
+//   let isFakeFetchCalled = false;
+//   const fakeFetch = (url) => {
+//     expect(url).toBe('https://vatapi.com/v1/country-code-check?code=DE')
+//     isFakeFetchCalled = true;
+//     return Promise.resolve({
+// json: () => Promise.resolve({
+          // rates: {
+          //   standard: {
+          //     value: 19
+          //   }
+          // }
+        // })
+      //})
+//   }
+//   return orderTotal(fakeFetch, orderWithCountry).then((result) =>{
+//     expect(result).toBe(20*2*1.19);
+//     expect(isFakeFetchCalled).toBe(true);
+//   })
+
 })
 
 it("Quantity", () => {
