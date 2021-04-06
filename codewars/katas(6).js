@@ -248,3 +248,51 @@ const check = (letter, str) => {
 //console.log(firstNonRepeatingLetter("moonmen")); //e
 //console.log(firstNonRepeatingLetter("abba")); //''
 console.log(firstNonRepeatingLetter("sTreSs")); //T
+
+
+const incrementString = (str) => {
+  const arr = str.split(/(\d+)/); //[ 'foobar', '099', '' ]
+  //console.log(arr);
+  return arr.length <= 1 ? `${str}1` : addNum(arr);
+}
+
+const addNum = (arr) => {
+
+  let zeroArr = [];
+  const arrOfNumStrings = arr[1].split('');
+
+  for (var i = 0; i < arrOfNumStrings.length -1 ; i++) {
+    if (arrOfNumStrings[i] === '0') {
+      zeroArr.push(arrOfNumStrings[i]);
+    }
+  }
+  // arrOfNumStrings.map((letterNum) => {
+  //   if (letterNum === '0' && arrOfNumStrings.indexOf(letterNum) != -1) {
+  //     zeroArr.push(letterNum);
+  //   }
+  // })
+  console.log('0Arr', zeroArr);
+    const number = parseInt(arr[1]) + 1;
+
+  //console.log('length', number.toString().split('').length);
+  if (arrOfNumStrings.length === number.toString().split('').length) {
+    const strNum = number.toString();
+    arr.splice(1, 1, strNum);
+    return arr.join('');
+  }
+
+  const zeroStr = zeroArr.join('').toString();
+  const newStr = zeroStr.concat(number.toString());
+  //console.log('newSTr', newStr);
+
+  arr.splice(1, 1, newStr);
+  //console.log('splice', arr.splice(1, 1, newStr));
+  return arr.join('');
+}
+
+console.log(incrementString('foo')); //foo1
+console.log(incrementString('foobar099')); //foobar100
+console.log(incrementString('foobar23'));
+console.log(incrementString('foobar0042'));
+console.log(incrementString('foo9'));
+console.log(incrementString('foobar000')); //foobar001
