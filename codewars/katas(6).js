@@ -243,7 +243,6 @@ const check = (letter, str) => {
   }
 }
 
-//ternary:  (!obj[array[i]]) ? obj[array[i]] = 1 : obj[array[i]++];
 //console.log(firstNonRepeatingLetter("stress")); //t
 //console.log(firstNonRepeatingLetter("moonmen")); //e
 //console.log(firstNonRepeatingLetter("abba")); //''
@@ -296,3 +295,100 @@ console.log(incrementString('foobar23'));
 console.log(incrementString('foobar0042'));
 console.log(incrementString('foo9'));
 console.log(incrementString('foobar000')); //foobar001
+
+//HOW TO LOOP OVER MAP!!!!!!!!!!!!!!!!!!!! <<<<---------------------------------------------------------------------------------------------------------------------------------
+const score = (arr) => {
+  let points = 0;
+  let obj = {};
+  for (var i = 0; i < arr.length; i++) {
+    !obj[arr[i]] ? obj[arr[i]] = 1 : obj[arr[i]]++;
+  }
+  console.log(obj);
+  // for (let i = 0; i < arr.length; i++) {
+  //   if (!obj[arr[i]]) { //1st iter - it doesnt contain f
+  //     obj[arr[i]] = 1 //make f (the key ) be equal to  1 (the value)
+  //   } else {
+  //     obj[arr[i]] ++; //goes here when there is more than 1, eg when value is 1 or more already
+  //   }
+  // }
+
+  const specialObj = Object.entries(obj).map(([key, value], index) => {
+    if (value > 3) {
+      return addToObject(obj, key, value, index);
+    } else {
+      return obj;
+    }
+  })
+
+  const doStuff =  Object.entries(specialObj).map( ([key, value]) => {
+    if (key === '1' && value === 1) {
+      points += 100
+    }
+    if (key === '1' && value === 2) {
+      points += 200
+    }
+    if (key === '1' && value >= 3) {
+      points += 1000
+    }
+    if (key === '2' && value === 3) {
+      points += 200
+    }
+    if (key === '3' && value === 3) {
+      points += 300
+    }
+    if (key === '4' && value === 3) {
+      points += 400
+    }
+    if (key === '5' && value === 3) {
+      points += 500
+    }
+    if (key === '5' && value === 1) {
+      points += 50
+    }
+    if (key === '6' && value === 3) {
+      points += 600
+    }
+  })
+
+  return points;
+}
+
+const addToObject = (obj, key, value, index) => {
+  let temp = {};
+  let i = 0;
+
+  Object.entries(obj).map((key, value) => {
+    if (value > 3) {
+      const newEntryVal = value - 3;
+    }
+  })
+
+
+  //HEREEEEEEEE - { '1': 4, '3': 1 } NEEDS TO BE {'1': 3, '1': 1, '3': 1}
+  //IF VAL FOR 1 IS ABOVE 3, THE REMAINDER OF VAL NEEDS TO COME IN AS A NEW ENTRY WITH KEY 1 IF VALREMAINDER IS BELOW 3
+  //MODULUS 3 AND NUM OF REMAINDERS IF HOW MANY VALUES GO IN
+
+
+
+  // for (let prop in obj) {
+  //   console.log('prop', prop.key);
+  //   if (obj.hasOwnProperty(prop)) {
+  //     if (i === index && key && value) {
+  //       temp[key] = value;
+  //     }
+  //     temp[prop] = obj[prop];
+  //     i++;
+  //   }
+  // }
+  // if (!index && key && value) {
+  //   temp[key] = value;
+  // }
+  return temp;
+}
+
+// console.log(score([2, 4, 4, 5, 4])); //450
+// console.log(score([4, 4, 4, 3, 3]));// 400
+// console.log(score([2, 3, 4, 6, 2])); //0
+//console.log(score([5, 1, 3, 4, 1])); //250
+console.log(score([1, 1, 1, 3, 1])); //1100
+//console.log(score([2, 4, 4, 5, 4])); //450
