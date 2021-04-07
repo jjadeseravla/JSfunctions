@@ -1,3 +1,6 @@
+//https://www.codewars.com/kata/5270d0d18625160ada0000e4/solutions/javascript
+//Greed is good Kata 5kyu
+
 const score = (arr) => {
   const obj = scoreFunc(arr);
   const  numberAndCounts = arrayOfNumberAndCounts(obj);
