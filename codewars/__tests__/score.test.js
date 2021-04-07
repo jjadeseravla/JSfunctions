@@ -1,6 +1,35 @@
 const score = require('../score.js');
 
 describe ('score first func', () => {
+
+  it('integration test i think as it should do the whole thing', () => {
+    const arr = [1, 1, 1, 3, 1];
+    const result = score.score(arr);
+    const expected = 1100;
+    expect(result).toEqual(expected);
+  })
+
+  it('second example: integration test i think as it should do the whole thing', () => {
+    const arr = [5, 1, 3, 4, 1];
+    const result = score.score(arr);
+    const expected = 250;
+    expect(result).toEqual(expected);
+  })
+
+  it('third example: integration test i think as it should do the whole thing', () => {
+    const arr = [4, 4, 4, 3, 3];
+    const result = score.score(arr);
+    const expected = 400;
+    expect(result).toEqual(expected);
+  })
+
+  it('fourth example: integration test i think as it should do the whole thing', () => {
+    const arr = [2, 3, 4, 6, 2];
+    const result = score.score(arr);
+    const expected = 0;
+    expect(result).toEqual(expected);
+  })
+
   it ('the first bit', () => {
     const arr = [1, 1, 1, 3, 1];
     const result = score.scoreFunc(arr);
@@ -65,7 +94,7 @@ describe ('score first func', () => {
     expect(result).toEqual(expected);
   })
 
-  it.only('third func', () => {
+  it('third func', () => {
     const filteredObj = [
       { number: '1', count: 3 },
       { number: '1', count: 1 },
