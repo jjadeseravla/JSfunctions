@@ -1,0 +1,15 @@
+{
+  "type": "module",
+  "name": "codewars",
+  "version": "1.0.0",
+  "description": "",
+  "main": "score.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^26.6.3"
+  }
+}

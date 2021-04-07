@@ -44,10 +44,10 @@ const duplicates = (ex) => {
 console.log(duplicates(ex2));
 
 
-const arr = ["NORTH", "EAST", "WEST", "SOUTH", "WEST", "WEST"] //["WEST", "WEST"]
-const arr2 = ["NORTH", "SOUTH", "EAST", "WEST", "EAST", "WEST"] //[]
-const arr3 = ["NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH", "WEST"] //["WEST"]
-const arr4 = ["SOUTH", "WEST", "NORTH", "NORTH", "EAST", "EAST"] // ["NORTH", "EAST"]
+// const arr = ["NORTH", "EAST", "WEST", "SOUTH", "WEST", "WEST"] //["WEST", "WEST"]
+// const arr2 = ["NORTH", "SOUTH", "EAST", "WEST", "EAST", "WEST"] //[]
+// const arr3 = ["NORTH", "SOUTH", "SOUTH", "EAST", "WEST", "NORTH", "WEST"] //["WEST"]
+// const arr4 = ["SOUTH", "WEST", "NORTH", "NORTH", "EAST", "EAST"] // ["NORTH", "EAST"]
 
 const directionsReduction = (arr) => {
   let horizontal = [];
@@ -146,7 +146,7 @@ const dirReduc = (arr) => {
   }, []);
 }
 
-console.log(dirReduc(arr3));
+//console.log(dirReduc(arr3));
 
 
 
@@ -190,9 +190,9 @@ const persistence = (num) => {
   return i;
 }
 
-console.log(persistence(39)); //3 cos 3*9=27 2*7=14, 1*4=4
-console.log(persistence(999)); //4
-console.log(persistence(4)); //0
+// console.log(persistence(39)); //3 cos 3*9=27 2*7=14, 1*4=4
+// console.log(persistence(999)); //4
+// console.log(persistence(4)); //0
 
 const sum_pairs = (arr, num) => {
   let newArr = [];
@@ -208,8 +208,8 @@ const sum_pairs = (arr, num) => {
   return newArr.slice(0, 2);
 }
 
-console.log(sum_pairs([11, 3, 7, 5], 10));
-console.log(sum_pairs([4, 3, 2, 2, 4], 6));
+// console.log(sum_pairs([11, 3, 7, 5], 10));
+// console.log(sum_pairs([4, 3, 2, 2, 4], 6));
 
 
 const firstNonRepeatingLetter = (str) => {
@@ -246,7 +246,7 @@ const check = (letter, str) => {
 //console.log(firstNonRepeatingLetter("stress")); //t
 //console.log(firstNonRepeatingLetter("moonmen")); //e
 //console.log(firstNonRepeatingLetter("abba")); //''
-console.log(firstNonRepeatingLetter("sTreSs")); //T
+//console.log(firstNonRepeatingLetter("sTreSs")); //T
 
 
 const incrementString = (str) => {
@@ -289,12 +289,12 @@ const addNum = (arr) => {
   return arr.join('');
 }
 
-console.log(incrementString('foo')); //foo1
-console.log(incrementString('foobar099')); //foobar100
-console.log(incrementString('foobar23'));
-console.log(incrementString('foobar0042'));
-console.log(incrementString('foo9'));
-console.log(incrementString('foobar000')); //foobar001
+// console.log(incrementString('foo')); //foo1
+// console.log(incrementString('foobar099')); //foobar100
+// console.log(incrementString('foobar23'));
+// console.log(incrementString('foobar0042'));
+// console.log(incrementString('foo9'));
+// console.log(incrementString('foobar000')); //foobar001
 
 //HOW TO LOOP OVER MAP!!!!!!!!!!!!!!!!!!!! <<<<---------------------------------------------------------------------------------------------------------------------------------
 const score = (arr) => {
@@ -353,16 +353,59 @@ const score = (arr) => {
   return points;
 }
 
-const addToObject = (obj, key, value, index) => {
-  let temp = {};
-  let i = 0;
+//const addToObject = (obj, key, value, index) => {
+const addToObject = (obj) => {
+  // let temp = {};
+  // let i = 0;
 
-  Object.entries(obj).map((key, value) => {
-    if (value > 3) {
-      const newEntryVal = value - 3;
+  const arrayOfNumberAndCounts = Object.entries(obj).reduce((acc, entry) => { //Object.entries gives you arr of arrs
+    console.log(entry);
+    return [...acc, { number: entry[0], count: entry[1] }]
+  }, []);
+  console.log('arrayOfNumberAndCounts', arrayOfNumberAndCounts);
+
+
+  const reducer = arrayOfNumberAndCounts.reduce((acc, entry) => {
+    console.log('entry.count', entry.count);
+
+    if (entry.count > 3) {
+      const remainder = entry.count % 3 //1
+      console.log('remainder', remainder);
+
+      if (remainder === 0) {
+        console.log('multiplier', multiplier);
+        const multiplier = entry.count /3 //1
+        let newArr = new Array(multiplier).fill({number: entry.number , count: 3});
+        return [...acc, ...newArr]
+      }
+
+      console.log('entry--------count', entry.count);
+      console.log('remainder-----', remainder);
+      return [...acc,
+        {number: entry.number , count: entry.count - remainder},
+        {number: entry.number , count: remainder}
+      ]
     }
-  })
+    return [...acc, entry]; //unchanged
+  }, [])
 
+  console.log('reducer', reducer);
+  return reducer;
+}
+
+  // [
+  //   { number: 1, count: 4},
+  //   { number: 3 count: 1},
+  // ]
+
+
+// [
+//   { number: 1, count: 3},
+//   { number: 1, count: 1},
+//   { number: 3 count: 1},
+// ]
+
+console.log(addToObject( { '1': 4, '3': 1 } ));
 
   //HEREEEEEEEE - { '1': 4, '3': 1 } NEEDS TO BE {'1': 3, '1': 1, '3': 1}
   //IF VAL FOR 1 IS ABOVE 3, THE REMAINDER OF VAL NEEDS TO COME IN AS A NEW ENTRY WITH KEY 1 IF VALREMAINDER IS BELOW 3
@@ -370,25 +413,25 @@ const addToObject = (obj, key, value, index) => {
 
 
 
-  // for (let prop in obj) {
-  //   console.log('prop', prop.key);
-  //   if (obj.hasOwnProperty(prop)) {
-  //     if (i === index && key && value) {
-  //       temp[key] = value;
-  //     }
-  //     temp[prop] = obj[prop];
-  //     i++;
-  //   }
-  // }
-  // if (!index && key && value) {
-  //   temp[key] = value;
-  // }
-  return temp;
-}
+//   // for (let prop in obj) {
+//   //   console.log('prop', prop.key);
+//   //   if (obj.hasOwnProperty(prop)) {
+//   //     if (i === index && key && value) {
+//   //       temp[key] = value;
+//   //     }
+//   //     temp[prop] = obj[prop];
+//   //     i++;
+//   //   }
+//   // }
+//   // if (!index && key && value) {
+//   //   temp[key] = value;
+//   // }
+//   return temp;
+// }
 
 // console.log(score([2, 4, 4, 5, 4])); //450
 // console.log(score([4, 4, 4, 3, 3]));// 400
 // console.log(score([2, 3, 4, 6, 2])); //0
 //console.log(score([5, 1, 3, 4, 1])); //250
-console.log(score([1, 1, 1, 3, 1])); //1100
+//-------console.log(score([1, 1, 1, 3, 1])); //1100
 //console.log(score([2, 4, 4, 5, 4])); //450
