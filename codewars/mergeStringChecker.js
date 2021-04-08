@@ -10,7 +10,18 @@ const isMerge = (s, str1, str2) => {
   };
 
   if (checker(arr3, arr1) && checker(arr3, arr1)) {
-    return true;
+    const removed = arr3.filter((el) => {
+      return !arr1.includes(el);
+    })
+    const removed2 = arr3.filter((el) => {
+      return !arr2.includes(el);
+    })
+
+    const newWord = [...removed, ...removed2].sort().join('');
+    const oldWord = arr3.sort().join('')
+    if (newWord === oldWord) {
+      return true
+    }
   }
   return false;
 }
