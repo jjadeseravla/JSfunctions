@@ -262,6 +262,7 @@ const charCompression = (str) => {
 //console.log(reverseString('abcdefg'));
 //console.log(isPalindrome('hannah'));
 //console.log(isPalindrome('abcdefg'));
+console.log(charMostAndFrequency('abbcccda'));
 // console.log(charMostAndFrequency('#%he3#33ll#l#o'))
 // console.log(charMostAndFrequency('32eddseew3'));
 // console.log(charMostAndFrequency('kdjf325  55555555o'));
