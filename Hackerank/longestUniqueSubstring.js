@@ -8,7 +8,7 @@ const solution = (s) => {
   for (let i = 0; i < s.length; i++) {
     let char = s.charAt(i); //charAt index of letter in string
     console.log('char', char);
-    let pos = current_s.indexOf(char);
+    let pos = current_s.indexOf(char);//pos is -1 cos that letter doesnt exist (till theres a dupliacte) in first round
     console.log('pos', pos);
     if (pos !== -1) { //if pos is not empty
        // cut "dv" to "v" when you see another "d"
