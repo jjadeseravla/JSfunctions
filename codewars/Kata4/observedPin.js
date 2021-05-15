@@ -36,9 +36,11 @@ const getPins = (strNum) => {
 
   } else {
     const arr = strNum.split('');
+    let result = [];
     arr.map((individualNum) => {
-      return getPins(individualNum);
+      result = getPins(individualNum);
     })
+    return result;
   }
 }
 
