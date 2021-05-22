@@ -144,11 +144,9 @@ const keyPad = [[1, 2, 3], [4, 5, 6], [7, 8, 9], [null, 0, null]];
 
 function getPins(observed) {
 
-    const passNoted = observed.split('');
-    console.log(passNoted);
+    const passNoted = observed.split(''); //[ '3', '6', '9' ]
 
     const comboList = [observed]; //[ '369' ]
-    console.log(comboList);
     const str = passNoted;
 
     const possibleCombo = findPossiblePass(passNoted),
