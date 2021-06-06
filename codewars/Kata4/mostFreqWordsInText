@@ -1,0 +1,107 @@
+//attempted to solve by getting biggest num of value and returning the key associated
+//with that value and then deleting that property form whole obj and using recursion to
+//iterate again to get biggest val (which would now be second biggest val) until i got 3 keys.
+
+//but easier way was to sort properties in obj by value and then get the last 3 which would have
+//the max values. no need for recursion.
+
+const topThreeWordsMine = (texttt) => {
+  const text = texttt.replace(/[^\w\s!?]/g,''); //remove everything but letters, numbers, space, exclamation and question mark from string?
+  const arrOfWords = text.split(' ');
+
+  const obj = {};
+
+  for (let i = 0; i < arrOfWords.length; i++) {
+    if (!obj[arrOfWords[i]]) {
+      obj[arrOfWords[i]] = 1;
+    } else {
+      obj[arrOfWords[i]] ++;
+    }
+  }
+
+
+  const maxValsAtEnd = sortObjFromSmallToLargestByVal(obj);
+  const last3Properties = maxValsAtEnd.slice(Math.max(maxValsAtEnd.length - 3, 0)).flat();
+  console.log(last3Properties);
+  let newArr = [];
+  for (let i = 0; i < last3Properties.length; i++) {
+    if (i % 2 === 0) {
+      newArr.push(last3Properties[i]);
+    }
+  }
+
+  return newArr.reverse();
+
+  // newArr.push(theKey);
+  //
+  // if (newArr.length === 3) {
+  //   return newArr;
+  // } else {
+  //   // delete obj.
+  //   newArr.push(...getMaxVal(obj));
+  //   console.log('llll');
+  //   return newArr;
+  // }
+}
+
+
+//sort object properties by values
+const sortObjFromSmallToLargestByVal = (obj) => {
+  let sortable = [];
+  for (let theThing in obj) {
+    sortable.push([theThing, obj[theThing]]);
+  }
+  sortable.sort((a, b) => {
+    return a[1] - b[1];
+  })
+  return sortable;
+}
+
+// const getMaxVal = (obj) => {
+//   const bigNum =  Math.max(...Object.values(obj)) //loop over values (the nums) of the object to get biggest num
+//   return objMapFunc(obj, bigNum);
+// }
+//
+// const objMapFunc = (obj, bigNum) => {
+//   let str = '';
+//   Object.entries(obj).forEach(([key, val]) => { //remember square brackets
+//     if (val === bigNum) {
+//       str = key;
+//     }
+//   })
+//   return str;
+// }
+
+
+
+
+
+
+
+
+
+
+
+//ANOTHER WAY OF DOING AN OBJ WITH WORDS AS KEYS AND FREQUENCY THAT THEY APPEAR AS VALUES
+function topThreeWords(text) {
+  let words = {} //make new obj
+  text.toLowerCase().replace(/([A-Za-z][A-Za-z']*)/g, match => { //replace the special characters with the match
+    //match is each word
+    let c = words[match] || 0
+    //a way to do an obj with words as key and val as frquency word appears
+    words[match] = ++c
+  })
+  //console.log(words) --> words here is the same as my obj above
+  return Object
+          .keys(words) //just get the words (ie the keys)
+          .sort(function(a,b){return words[b]-words[a]}) //sort those values (the numbers) of the keys (the words in obj of words)
+          .slice(0,3) //return the first 3 keys
+}
+
+
+//console.log(topThreeWords("  //wont won't won't")); //need regex for apostrophes between words
+
+//console.log(topThreeWords("e e e e DDD ddd DdD: ddd ddd aa aA Aa, bb cc cC e e e")); //need to count for capital letters, but return in original form
+//["e", "ddd", "aa"]
+console.log(topThreeWords("In a village of La Mancha, the name of which I have no desire to call to mind, there lived not long since one of those gentlemen that keep a lance in the lance-rack, an old buckler, a lean hack, and a greyhound for coursing. An olla of rather more beef than mutton, a salad on most nights, scraps on Saturdays, lentils on Fridays, and a pigeon or so extra on Sundays, made away with three-quarters of his income."));
+//["a", "of", "on"]
