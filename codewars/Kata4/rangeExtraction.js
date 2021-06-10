@@ -46,3 +46,24 @@ console.log(rangeExtraction([-6, -3, -2, -1, 0, 1, 3, 4, 5, 7, 8, 9, 10, 11, 14,
 //   15, 14,        14,
 //   20, 17,        19
 // ]
+
+rangeExtraction = (list)=>list.reduce((acc,curr,i) => {
+  if (i==0) return curr.toString();
+  if (list[i-1] == curr-1 && list[i+1] == curr+1) return acc;
+  if (list[i-2] == curr-2 && list[i-1] == curr-1) return acc+"-"+curr;
+  return acc+","+curr;
+});
+
+function solution(list){
+   return list
+     .reduce((acc, n, i, arr) => {
+       if(n !== arr[i - 1] + 1) {
+         acc.push([n]);
+       } else {
+         acc[acc.length - 1].push(n);
+       }
+       return acc;
+     }, [])
+     .map(arr => arr.length > 2 ? `${arr[0]}-${arr[arr.length-1]}` : arr)
+     .join(',');
+}
